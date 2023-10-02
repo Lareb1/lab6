@@ -1,0 +1,305 @@
+<!--Write a JavaScript program to set the background color of a paragraph.-->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8 />
+<title>JS Bin</title>
+</head>
+<body>
+<input type="button" value="Click to set paragraph background color"
+onclick="set_background()">
+<p>w3resource JavaScript Exercises</p>
+<p>w3resource PHP Exercises</p>
+<script>
+  function set_bgcolor() {
+    // Get the paragraph elements
+    var paragraphs = document.getElementsByTagName("p");
+    
+    // Set background color for each paragraph
+    for (var i = 0; i < paragraphs.length; i++) {
+      paragraphs[i].style.backgroungcolor = "lightblue";
+    }
+  }
+</script>
+</body>
+</html>
+
+
+
+<!--================================================================================-->
+<!--TASK 2-->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+</head>
+<body>
+<p><a id="w3r" type="text/html" hreflang="en-us" rel="nofollow" target="_self" 
+href="http://www.w3resource.com/">w3resource</a></p>
+<button onclick="getAttributes()">Click here to get attributes value</button>
+
+<script>
+function getAttributes() {
+  var link = document.getElementById('w3r');    
+  var hrefValue = link.getAttribute('href');
+  var hreflangValue = link.getAttribute('hreflang');
+  var relValue = link.getAttribute('rel');
+  var targetValue = link.getAttribute('target');
+  var typeValue = link.getAttribute('type');
+
+  alert("href: " + hrefValue + "\n" +
+        "hreflang: " + hreflangValue + "\n" +
+        "rel: " + relValue + "\n" +
+        "target: " + targetValue + "\n" +
+        "type: " + typeValue);
+}
+</script>
+</body>
+</html> 
+<!--================================================================================-->
+<!--TASK 3-->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>JS DOM paragraph style</title>
+</head>
+<body>
+<p id="text">JavaScript Exercises - w3resource</p>
+  <button id="jsstyle" onclick="js_style()">Style</button>
+<script>
+function js_style() {
+  var paragraph = document.getElementById("text");
+  paragraph.style.fontSize = '24px'; 
+  paragraph.style.fontFamily = 'Arial, sans-serif'; 
+  paragraph.style.color = 'blue'; 
+  paragraph.style.backgroundColor = 'lightgray'; 
+}
+</script>
+</body>
+</html>
+<!--================================================================================-->
+<!--TASK 4-->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Insert row in a table - w3resource</title>
+</head>
+<body>
+<table id="sampleTable" border="1">
+  <tr>
+    <td>Row1 cell1</td>
+    <td>Row1 cell2</td>
+  </tr>
+  <tr>
+    <td>Row2 cell1</td>
+    <td>Row2 cell2</td>
+  </tr>
+</table>
+<br>
+<input type="button" onclick="insert_Row()" value="Insert row">
+</body>
+<script>
+function insert_Row() {
+  var table = document.getElementById('sampleTable');
+  var newRow = table.insertRow(table.rows.length);
+
+  var cell1 = newRow.insertCell(0);
+  var cell2 = newRow.insertCell(1);
+
+  cell1.innerHTML = 'New Row cell1';
+  cell2.innerHTML = 'New Row cell2';
+}
+</script>
+</html>
+<!--================================================================================-->
+<!--TASK 6-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Todo List App</title>
+    <style>
+        /* Add some basic CSS for styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        .todo-container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: pink;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+        }
+        .todo-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .todo-list li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .completed {
+            text-decoration: line-through;
+            color: #999;
+        }
+
+        .buttons {
+            display: flex;
+        }
+
+        .buttons button {
+            margin-left: 5px;
+            cursor: pointer;
+            border: none;
+            background: none;
+            color: red;
+        }
+.header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.notebook-icon {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+}
+
+h1 {
+    margin: 0;
+}
+
+
+    </style>
+</head>
+<body>
+    <div class="todo-container">
+            <div class="header">
+                <img src="todolist.jpg"Notebook Icon" class="notebook-icon">
+                <h1>Todo List App</h1>
+            </div>
+            <form id="todo-form">
+                <input type="text" id="new-todo" placeholder="Add a new todo" required>
+                <button type="submit">Add</button>
+            </form>
+            <ul class="todo-list" id="todos">
+                <!-- Todos will be added here dynamically -->
+            </ul>
+        </div>
+
+    <script>
+    // Function to load todos from localStorage
+        function loadTodos() {
+            const todos = JSON.parse(localStorage.getItem('todos')) || [];
+            return todos;
+        }
+
+        // Function to save todos to localStorage
+        function saveTodos(todos) {
+            localStorage.setItem('todos', JSON.stringify(todos));
+        }
+
+        // Function to create a new todo element
+        function createTodoElement(todo) {
+            const li = document.createElement('li');
+            li.innerHTML = `
+                <span class="${todo.completed ? 'completed' : ''}">${todo.text}</span>
+                <div class="buttons">
+                    <button class="complete-button" data-id="${todo.id}">Complete</button>
+                    <button class="delete-button" data-id="${todo.id}">Delete</button>
+                </div>
+            `;
+
+            // Add event listeners for complete and delete buttons
+            li.querySelector('.complete-button').addEventListener('click', completeTodo);
+            li.querySelector('.delete-button').addEventListener('click', deleteTodo);
+
+            return li;
+        }
+
+        // Function to render todos
+        function renderTodos() {
+            const todos = loadTodos();
+            const todosList = document.getElementById('todos');
+
+            todosList.innerHTML = '';
+            todos.forEach(todo => {
+                const todoElement = createTodoElement(todo);
+                todosList.appendChild(todoElement);
+            });
+        }
+
+        // Function to add a new todo
+        function addTodo(event) {
+            event.preventDefault();
+            const newTodoText = document.getElementById('new-todo').value;
+
+            if (!newTodoText) return;
+
+            const todos = loadTodos();
+            const newTodo = {
+                id: Date.now(),
+                text: newTodoText,
+                completed: false
+            };
+            todos.push(newTodo);
+            saveTodos(todos);
+
+            document.getElementById('new-todo').value = '';
+            renderTodos();
+        }
+
+        // Function to mark a todo as completed
+        function completeTodo(event) {
+            const todoId = parseInt(event.target.getAttribute('data-id'));
+            const todos = loadTodos();
+            const todoIndex = todos.findIndex(todo => todo.id === todoId);
+
+            if (todoIndex !== -1) {
+                todos[todoIndex].completed = !todos[todoIndex].completed;
+                saveTodos(todos);
+                renderTodos();
+            }
+        }
+
+        // Function to delete a todo
+        function deleteTodo(event) {
+            const todoId = parseInt(event.target.getAttribute('data-id'));
+            const todos = loadTodos();
+            const newTodos = todos.filter(todo => todo.id !== todoId);
+            saveTodos(newTodos);
+            renderTodos();
+        }
+
+        // Add event listener for the form submit
+        document.getElementById('todo-form').addEventListener('submit', addTodo);
+
+        // Initial rendering of todos
+        renderTodos();
+
+        const newTodoInput = document.getElementById("new-todo");
+    newTodoInput.style.borderRadius = '20px'; 
+    newTodoInput.style.padding = '10px'; 
+
+    // Colorful button
+    const addButton = document.querySelector('button[type="submit"]');
+    addButton.style.backgroundColor = 'blue'; 
+    addButton.style.color = 'white'; 
+    addButton.style.border = 'none';
+    addButton.style.borderRadius = '20px';
+    addButton.style.padding = '10px 20px'; 
+    addButton.style.cursor = 'pointer';
+    </script>
+</body>
+</html>
